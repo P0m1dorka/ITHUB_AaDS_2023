@@ -43,7 +43,7 @@ public class ListUnitTest
         List list = new List();
         Assert.AreEqual(list.Empty(), true);
         int[] arr = new int[]{1, 7, 2, 4, 10, 4};
-        List list = new List(arr);
+        list = new List(arr);
         Assert.AreEqual(list.Empty(), false);
     }
 
@@ -53,7 +53,7 @@ public class ListUnitTest
         List list = new List();
         Assert.AreEqual(list.Size(), 0);
         int[] arr = new int[]{1, 7, 2, 4, 10, 4};
-        List list = new List(arr);
+        list = new List(arr);
         Assert.AreEqual(list.Size(), 6);
     }
 
@@ -158,6 +158,8 @@ public class ListUnitTest
     {
         int[] arr = new int[]{1, 7, 2, 4, 10, 4};
         List list = new List(arr);
+        int N = 6;
+        list.Sort();
         for(int i = 0; i < N - 1; ++i) 
         {
             Assert.IsTrue(list[i] <= list[i+1]);
