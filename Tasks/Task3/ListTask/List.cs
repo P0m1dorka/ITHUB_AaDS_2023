@@ -37,14 +37,26 @@ namespace ListTask
             }  
         }
 
-        public int Front()
+        public int? Front()
         {
-            return this.head.value;
+             if (head != null)
+                return head.value;
+
+            else
+            {
+                return null;
+            }
         }
 
-        public int Back()
+        public int? Back()
         {
-            return this.tail.value;
+            if (tail != null)
+                return tail.value;
+
+            else
+            {
+                return null;
+            }
         }
 
         public bool Empty()
@@ -133,8 +145,7 @@ namespace ListTask
             else if (count < size)
             {
                 int b = size - count;
-                for (int i = 0; i < b; i++) //��������
-
+                for (int i = 0; i < b; i++)
                 { 
                         PopBack();
                 }
@@ -145,33 +156,157 @@ namespace ListTask
 
         public void Swap(List other_list)
         {
-            throw new NotImplementedException();
+            List buf = new List();
+            buf.head = other_list.head;
+            buf.tail = other_list.tail;
+            other_list.head = head;
+            other_list.tail = tail;
+            head = buf.head;
+            tail = buf.tail;
         }
 
         public void Remove(int value)
         {
-            throw new NotImplementedException();
+           Node buf = head;
+
+            while (buf.value != value && buf != tail)
+            {
+                buf = buf.next;
+
+            }
+
+            if (buf.value != value)
+            {
+                throw new Exception("No such value");
+
+            }
+
+            if (buf == tail)
+            {
+                tail = buf.prev;
+
+            }
+            else if (buf == head)
+            {
+                head = buf.next;
+            }
+            else
+            {
+
+                buf.prev.next = buf.next;
+                buf.next.prev = buf.prev;
+            }
+            size--;
         }
 
         public void Unique()
         {
-            throw new NotImplementedException();
+           if (head == null && tail == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            Node buff = head;
+            while (buff.next != null)
+            {
+                if (buff.next.value == buff.value)
+                {
+                    Node buff2 = buff.next;
+                    while (buff2.next != null && buff2.next.value == buff.value)
+                    {
+                        buff2 = buff2.next;
+
+                    }
+
+                    if (buff2.next != null)
+                    {
+                        buff.next = buff2.next;
+                        buff2.next.prev = buff;
+                    }
+                    else
+                    {
+                        buff.next = null;
+                        tail = buff;
+                        return;
+                    }
+
+                }
+                buff = buff.next;
+            }
         }
 
         public void Sort()
         {
-            throw new NotImplementedException();
+             Node node = head;
+            Node bufNode = head;
+            Node min = head;
+            while (node.next != null)
+            {
+                while (bufNode != null)
+                {
+                    if (min.value > bufNode.value)
+                    {
+                        min = bufNode;
+                    }
+                    bufNode = bufNode.next;
+                }
+
+                int buf = node.value;
+                node.value = min.value;
+                min.value = buf;
+
+                node = node.next;
+                bufNode = node;
+                min = node;
+            }
         }
 
         public int this[int index]
         {
             get
             {
-                throw new NotImplementedException();
+                if (index < 0 || index > size - 1)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                if (index == 0)
+                {
+                    return head.value;
+                }
+                else
+                {
+                    int ind = 0;
+                    Node buf = head;
+                    while (index != ind)
+                    {
+                        buf = buf.next;
+                        ind++;
+                    }
+                    return buf.value;
+                }
+
             }
             set
             {
-                throw new NotImplementedException();
+                if (index < 0 || index > size - 1)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                if (index == 0)
+                {
+                    head.value = value;
+                }
+                else
+                {
+                    int ind = 0;
+                    Node buf = head;
+                    while (index != ind)
+                    {
+                        buf = buf.next;
+                        ind++;
+                    }
+                    buf.value = value;
+                }
             }
         }
     }
