@@ -41,7 +41,7 @@ public class CardStack
     public Card Top()
     {
         if (stack.Count == 0)
-            throw new InvalidOperationException("Stack is empty");
+            throw new InvalidOperationException("Стык пустой");
 
         return stack.Peek();
     }
@@ -49,7 +49,7 @@ public class CardStack
     public Card Pop()
     {
         if (stack.Count == 0)
-            throw new InvalidOperationException("Stack is empty");
+            throw new InvalidOperationException("Стек пустой");
 
         return stack.Pop();
     }
