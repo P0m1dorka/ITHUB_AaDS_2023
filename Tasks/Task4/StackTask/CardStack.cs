@@ -2,18 +2,17 @@
 
 public class CardStack
 {
-
+    private Card[] massiv = new Card[0];
     public int Size
     {
         get
         {
-            throw new NotImplementedException();
+            return massiv.Length;
         }
     }
-
     public void Push(Card card)
     {
-        throw new NotImplementedException();
+
     }
 
     public Card Top()
@@ -28,7 +27,18 @@ public class CardStack
 
     public bool IsReadyForGame()
     {
-        throw new NotImplementedException();
+        if (massiv.Length >= 30)
+        {
+            return true;
+        }
+        else if (massiv.Length > 100)
+        {
+            throw new Exception("too much");
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void Shuffle()
